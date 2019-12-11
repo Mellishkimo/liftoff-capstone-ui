@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 import Button from 'react-bootstrap/Button'
 
 export default () => {
-    return <div className="text-center">
+    return <div className="container" style={{ textAlign: 'center' }}>
         <h1>Add a Movie to the Database!</h1>
         <br />
         <p>

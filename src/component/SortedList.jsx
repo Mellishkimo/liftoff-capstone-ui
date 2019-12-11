@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Table from 'react-bootstrap/Table';
 import MovieDataService from '../service/MovieDataService';
 import { Link } from 'react-router-dom';
-import { Button } from '@material-ui/core';
+import Button from 'react-bootstrap/Button';
 
 const REVIEW = 'lightning-fast-horror-reviews'
 const sortAggs = {
@@ -170,34 +170,34 @@ class ListMovies extends Component {
                     <tr>
                         <th>Title</th>
                         <th>
-                            <button onClick={this.onSortChangeOverall}>
+                            <Button style={{ color: 'black'}} variant='link' onClick={this.onSortChangeOverall}>
                                 Overall Rating
-                            </button>
+                            </Button>
                         </th>
                         <th>
-                            <button onClick={this.onSortChangePlot}>
+                            <Button style={{ color: 'black'}} variant='link' onClick={this.onSortChangePlot}>
                                 Plot
-                            </button>
+                            </Button>
                         </th>
                         <th>
-                            <button onClick={this.onSortChangeCharacter}>
+                            <Button style={{ color: 'black'}} variant='link' onClick={this.onSortChangeCharacter}>
                                 Characters
-                            </button>
+                            </Button>
                         </th>
                         <th>
-                            <button onClick={this.onSortChangeThreat}>
+                            <Button style={{ color: 'black'}} variant='link' onClick={this.onSortChangeThreat}>
                                 Threat/Antagonist
-                            </button>
+                            </Button>
                         </th>
                         <th>
-                            <button onClick={this.onSortChangeAesthetic}>
+                            <Button style={{ color: 'black'}} variant='link' onClick={this.onSortChangeAesthetic}>
                                 Aesthetic/Atmosphere
-                            </button>
+                            </Button>
                         </th>
                         <th>
-                            <button onClick={this.onSortChangeGraphicContent}>
+                            <Button style={{ color: 'black'}} variant='link' onClick={this.onSortChangeGraphicContent}>
                                 Graphic Content
-                            </button>
+                            </Button>
                         </th>
                     </tr>
                 </thead>
@@ -207,7 +207,7 @@ class ListMovies extends Component {
                         <tr key={movie.movieId}>
                             <td>
                                 <Link to={`/reviews-for/${movie.movieId}`}>
-                                    <Button>{movie.movieName}</Button>
+                                    <Button style={{ color: 'black' }} variant='link'><b>{movie.movieName}</b></Button>
                                 </Link>
                             </td>
                             <td>{movie.overallAggregate}</td>

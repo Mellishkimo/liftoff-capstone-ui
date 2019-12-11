@@ -56,13 +56,18 @@ class MoviePage extends Component {
                     { this.state.reviews.map(
                         review =>
                         <Card border="primary" key={review.id}>
+                            <Card.Header><b>Author:</b> {review.author}</Card.Header>
                             <ListGroup >
-                                <ListGroup.Item> Author: {review.author}</ListGroup.Item>
-                                <ListGroup.Item> Plot: ({review.plotRating}) Description: {review.plotDescription}</ListGroup.Item>
-                                <ListGroup.Item> Characters: ({review.characterRating}) Description: {review.characterDescription}</ListGroup.Item>
-                                <ListGroup.Item> Threat/Antagonist: ({review.threatRating}) Description: {review.threatDescription}</ListGroup.Item>
-                                <ListGroup.Item> Aesthetic/Atmosphere: ({review.aestheticRating}) Description: {review.aestheticDescription}</ListGroup.Item>
-                                <ListGroup.Item> Graphic Content: ({review.graphicContentRating}) Description: {review.graphicContentDescription}</ListGroup.Item>
+                                <ListGroup.Item style={{ fontSize: 'x-large' }}> <b>Plot Rating:</b> ({review.plotRating})</ListGroup.Item>
+                                <ListGroup.Item><i>{review.plotDescription}</i></ListGroup.Item>
+                                <ListGroup.Item style={{ fontSize: 'x-large' }}> <b>Character Rating:</b> ({review.characterRating})</ListGroup.Item>
+                                <ListGroup.Item><i>{review.characterDescription}</i></ListGroup.Item>
+                                <ListGroup.Item style={{ fontSize: 'x-large' }}> <b>Threat/Antagonist:</b> ({review.threatRating})</ListGroup.Item>
+                                <ListGroup.Item><i>{review.threatDescription}</i></ListGroup.Item>
+                                <ListGroup.Item style={{ fontSize: 'x-large' }}> <b>Aesthetic/Atmosphere:</b> ({review.aestheticRating})</ListGroup.Item>
+                                <ListGroup.Item><i>{review.aestheticDescription}</i></ListGroup.Item>
+                                <ListGroup.Item style={{ fontSize: 'x-large' }}> <b>Graphic Content:</b> ({review.graphicContentRating})</ListGroup.Item>
+                                <ListGroup.Item><i>{review.graphicContentDescription}</i></ListGroup.Item>
                             </ListGroup>
                         </Card>
                     )}
