@@ -18,12 +18,12 @@ export default () => {
         </h3>
         <br />
         <Link to="/all-movies">
-                <Button>*Browse the Database*</Button>
+                <Button size="lg">*Browse the Database*</Button>
         </Link>
         <br />
         <br />
         <Link to="/add-review">
-            <Button>*Submit a Review*</Button>
+            <Button size="lg">*Submit a Review*</Button>
         </Link>
     </div>
     )

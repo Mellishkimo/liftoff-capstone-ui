@@ -13,18 +13,18 @@ export default () => {
                 by using the "Review This Movie!" button
                 next to the movie on the Master List.
             </p>
-            <br />
+            
             <Link to="/all-movies">
                 <Button>*Browse the Master List*</Button>
             </Link>
-            <br />
+            
             <br />
             <br />
             <p style={{ fontSize: 'large' }}>
                 Can't find the movie you want to review in the database? It might not have been added yet!
                 Add the movie to the database using the link below!
             </p>
-            <br />
+            
             <Link to="/add-movie">
                 <Button>*Add the Movie to the Database!*</Button>
             </Link>

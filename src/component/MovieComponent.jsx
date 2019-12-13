@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import MovieDataService from '../service/MovieDataService';
-import { withRouter } from 'react-router-dom'
-import Button from 'react-bootstrap/Button'
+import { withRouter } from 'react-router-dom';
+import Button from 'react-bootstrap/Button';
+
 
 
 class MovieComponent extends Component {
@@ -10,7 +11,8 @@ class MovieComponent extends Component {
         super(props)
 
         this.state = {
-            title: ''
+            title: '',
+            posterSource: ''
         }
 
         this.onSubmit = this.onSubmit.bind(this)
@@ -18,12 +20,17 @@ class MovieComponent extends Component {
 
     }
 
+    
+
   
 
     validate(values) {
         let errors = {}
         if (!values.title) {
             errors.title = 'Enter a Title'
+        }
+        if (!values.posterSource) {
+            errors.posterSource = 'Please paste a source address for the movie poster image'
         }
 
         return errors
@@ -33,7 +40,8 @@ class MovieComponent extends Component {
     onSubmit(values) {
         
         let movie = {
-            title: values.title
+            title: values.title,
+            posterSource: values.posterSource
         }
 
         if (movie.title !== "zzyzyzz") {
@@ -46,13 +54,13 @@ class MovieComponent extends Component {
 
     render() {
 
-        let { title } = this.state
+        let { title, posterSource } = this.state
 
         return (
             <div>
                 <div className="text-center">
                     <Formik
-                        initialValues={{ title }}
+                        initialValues={{ title, posterSource }}
                         onSubmit={this.onSubmit}
                         validate={this.validate}
                     >
@@ -63,6 +71,12 @@ class MovieComponent extends Component {
                                         className="alert alert-warning" />
                                     <fieldset className="form-group">
                                         <Field className="form-control" type="text" name="title" />
+                                    </fieldset>
+                                    <label>Paste the image address of the image you would like to upload as the movie's poster below!</label>
+                                    <ErrorMessage name="posterSource" component="div"
+                                        className="alert alert-warning" />
+                                    <fieldset className="form-group">
+                                        <Field className="form-control" type="text" name="posterSource" />
                                     </fieldset>
                                     <Button className="btn btn-success" type="submit">Add Movie</Button>
                                 </Form>
