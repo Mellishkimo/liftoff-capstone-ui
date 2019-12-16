@@ -231,6 +231,7 @@ class ListMovies extends Component {
                 </tbody>
             </Table>
         );
+        
             
     }
 }

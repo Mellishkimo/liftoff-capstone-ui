@@ -50,6 +50,21 @@ class ReviewComponent extends Component {
         if (!values.author) {
             errors.author = 'Enter your name or nickname!'
         }
+        if (values.plotDescription.length > 140) {
+            errors.plotDescription = 'Comments must be fewer than 140 characters in length.'
+        }
+        if (values.characterDescription.length > 140) {
+            errors.characterDescription = 'Comments must be fewer than 140 characters in length.'
+        }
+        if (values.threatDescription.length > 140) {
+            errors.threatDescription = 'Comments must be fewer than 140 characters in length.'
+        }
+        if (values.aestheticDescription.length > 140) {
+            errors.aestheticDescription = 'Comments must be fewer than 140 characters in length.'
+        }
+        if (values.graphicContentDescription.length > 140) {
+            errors.graphicContentDescription = 'Comments must be fewer than 140 characters in length.'
+        }
 
         return errors
 
@@ -107,7 +122,9 @@ class ReviewComponent extends Component {
                                         <Field className="form-control" type="text" name="author" />
                                     </fieldset>
 
-                                    <label>Plot (Please enter a rating on a scale of 1-10)</label>                                 
+                                    <label>Plot (Please enter a rating on a scale of 1-10)</label> 
+                                    <ErrorMessage name="plotDescription" component="div"
+                                        className="alert alert-warning" />                                
                                     <fieldset className="form-group">
                                         <Field className="form-control" type="text" name="plotRating" />
                                         <label>You may optionally include a brief comment in the box below, no more than 140 characters in length</label>
@@ -118,6 +135,8 @@ class ReviewComponent extends Component {
                                     <fieldset className="form-group">
                                         <Field className="form-control" type="text" name="characterRating" />
                                         <label>You may optionally include a brief comment in the box below, no more than 140 characters in length</label>
+                                        <ErrorMessage name="characterDescription" component="div"
+                                        className="alert alert-warning" />
                                         <Field className="form-control" type="text" name="characterDescription" />
                                     </fieldset>
 
@@ -125,6 +144,8 @@ class ReviewComponent extends Component {
                                     <fieldset className="form-group">
                                         <Field className="form-control" type="text" name="threatRating" />
                                         <label>You may optionally include a brief comment in the box below, no more than 140 characters in length</label>
+                                        <ErrorMessage name="threatDescription" component="div"
+                                        className="alert alert-warning" />
                                         <Field className="form-control" type="text" name="threatDescription" />
                                     </fieldset>
                                     
@@ -132,6 +153,8 @@ class ReviewComponent extends Component {
                                     <fieldset className="form-group">
                                         <Field className="form-control" type="text" name="aestheticRating" />
                                         <label>You may optionally include a brief comment in the box below, no more than 140 characters in length</label>
+                                        <ErrorMessage name="aestheticDescription" component="div"
+                                        className="alert alert-warning" />
                                         <Field className="form-control" type="text" name="aestheticDescription" />
                                     </fieldset>
                                     
@@ -139,6 +162,8 @@ class ReviewComponent extends Component {
                                     <fieldset className="form-group">
                                         <Field className="form-control" type="text" name="graphicContentRating" />
                                         <label>You may optionally include a brief comment in the box below, no more than 140 characters in length</label>
+                                        <ErrorMessage name="graphicContentDescription" component="div"
+                                        className="alert alert-warning" />
                                         <Field className="form-control" type="text" name="graphicContentDescription" />
                                     </fieldset>
                                     <button

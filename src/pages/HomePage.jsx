@@ -1,13 +1,12 @@
 import React from 'react'
 import Button from 'react-bootstrap/Button'
 import { Link } from 'react-router-dom'
+import RecentlyReviewed from '../component/RecentlyReviewedComponent'
 
 export default () => {
     return (
     <div className="container" style={{ textAlign: 'center' }}>
-        <h1 style={{ fontSize: 'xxx-large', fontFamily: 'cursive' }}>Welcome to Lightning Fast Horror Reviews</h1>
-        <br />
-        <br />
+        <h1 style={{ fontSize: 'xxx-large' }}>Welcome to Lightning Fast Horror Reviews</h1>
         <br />
         <br />
         <h3 style={{ fontSize: 'x-large' }}>
@@ -18,13 +17,17 @@ export default () => {
         </h3>
         <br />
         <Link to="/all-movies">
-                <Button size="lg">*Browse the Database*</Button>
+                <Button size="lg" style={{ width: '300px' }}>*Browse the Database*</Button>
         </Link>
         <br />
         <br />
         <Link to="/add-review">
-            <Button size="lg">*Submit a Review*</Button>
+            <Button size="lg" style={{ width: '300px' }}>*Submit a Review*</Button>
         </Link>
+        <br />
+        <br />
+        <RecentlyReviewed />
+        <br />
     </div>
     )
 }

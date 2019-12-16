@@ -27,6 +27,10 @@ class MovieDataService {
     retrieveAllAggregateScores(name) {
         return axios.get(`${MOVIE_API_URL}/movies/aggregates/`);
     }
+
+    retrieveRecentlyReviewed(name) {
+        return axios.get(`${MOVIE_API_URL}/movies/recent/`);
+    }
 }
 
 export default new MovieDataService()
