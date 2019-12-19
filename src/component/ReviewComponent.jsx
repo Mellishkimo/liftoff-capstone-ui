@@ -117,54 +117,120 @@ class ReviewComponent extends Component {
                                 <Form>
                                     <ErrorMessage name="author" component="div"
                                         className="alert alert-warning" />
-                                    <label>Author (Enter your name or nickname here)</label>
+                                    <label><b>Author</b> (Enter your name or nickname here)</label>
                                     <fieldset className="form-group">
                                         <Field className="form-control" type="text" name="author" />
                                     </fieldset>
 
-                                    <label>Plot (Please enter a rating on a scale of 1-10)</label> 
+                                    
                                     <ErrorMessage name="plotDescription" component="div"
                                         className="alert alert-warning" />                                
                                     <fieldset className="form-group">
-                                        <Field className="form-control" type="text" name="plotRating" />
+                                    <label><b>Plot:</b></label> 
+                                        <Field name="plotRating" component="select">
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                            <option value="4">4</option>
+                                            <option value="5">5</option>
+                                            <option value="6">6</option>
+                                            <option value="7">7</option>
+                                            <option value="8">8</option>
+                                            <option value="9">9</option>
+                                            <option value="10">10</option>
+                                        </Field>
+                                    </fieldset>
+                                    <fieldset className="form-group">
                                         <label>You may optionally include a brief comment in the box below, no more than 140 characters in length</label>
                                         <Field className="form-control" type="textarea" rows="2" name="plotDescription" />
                                     </fieldset>
                                     
-                                    <label>Characters (Please enter a rating on a scale of 1-10)</label>                                
+                                    <ErrorMessage name="characterDescription" component="div"
+                                        className="alert alert-warning" />                            
                                     <fieldset className="form-group">
-                                        <Field className="form-control" type="text" name="characterRating" />
-                                        <label>You may optionally include a brief comment in the box below, no more than 140 characters in length</label>
-                                        <ErrorMessage name="characterDescription" component="div"
-                                        className="alert alert-warning" />
-                                        <Field className="form-control" type="text" name="characterDescription" />
+                                        <label><b>Characters:</b></label>    
+                                        <Field name="characterRating" component="select">
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                            <option value="4">4</option>
+                                            <option value="5">5</option>
+                                            <option value="6">6</option>
+                                            <option value="7">7</option>
+                                            <option value="8">8</option>
+                                            <option value="9">9</option>
+                                            <option value="10">10</option>
+                                        </Field>
                                     </fieldset>
-
-                                    <label>Threat/Antagonist (Please enter a rating on a scale of 1-10)</label>                                  
-                                    <fieldset className="form-group">
-                                        <Field className="form-control" type="text" name="threatRating" />
+                                    <fieldset>
                                         <label>You may optionally include a brief comment in the box below, no more than 140 characters in length</label>
-                                        <ErrorMessage name="threatDescription" component="div"
+                                        <Field className="form-control" type="textarea" rows="2" name="characterDescription" />
+                                    </fieldset>
+                                 
+                                    <ErrorMessage name="threatDescription" component="div"
                                         className="alert alert-warning" />
-                                        <Field className="form-control" type="text" name="threatDescription" />
+                                    <fieldset className="form-group">
+                                        <label><b>Threat/Antagonist:</b></label> 
+                                        <Field name="threatRating" component="select">
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                            <option value="4">4</option>
+                                            <option value="5">5</option>
+                                            <option value="6">6</option>
+                                            <option value="7">7</option>
+                                            <option value="8">8</option>
+                                            <option value="9">9</option>
+                                            <option value="10">10</option>
+                                        </Field>
+                                    </fieldset>
+                                    <fieldset>
+                                        <label>You may optionally include a brief comment in the box below, no more than 140 characters in length</label>
+                                        <Field className="form-control" type="textarea" rows="2" name="threatDescription" />
                                     </fieldset>
                                     
-                                    <label>Atmosphere/Aesthetic (Please enter a rating on a scale of 1-10)</label>                                   
+                                    <ErrorMessage name="aestheticDescription" component="div"
+                                        className="alert alert-warning" />                                
                                     <fieldset className="form-group">
-                                        <Field className="form-control" type="text" name="aestheticRating" />
+                                        <label><b>Atmosphere/Aesthetic:</b></label>   
+                                        <Field name="aestheticRating" component="select">
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                            <option value="4">4</option>
+                                            <option value="5">5</option>
+                                            <option value="6">6</option>
+                                            <option value="7">7</option>
+                                            <option value="8">8</option>
+                                            <option value="9">9</option>
+                                            <option value="10">10</option>
+                                        </Field>
+                                    </fieldset>
+                                    <fieldset>
                                         <label>You may optionally include a brief comment in the box below, no more than 140 characters in length</label>
-                                        <ErrorMessage name="aestheticDescription" component="div"
-                                        className="alert alert-warning" />
-                                        <Field className="form-control" type="text" name="aestheticDescription" />
+                                        <Field className="form-control" type="textarea" rows="2" name="aestheticDescription" />
                                     </fieldset>
                                     
-                                    <label>Graphic Content (Please enter a rating on a scale of 1-10)</label>
-                                    <fieldset className="form-group">
-                                        <Field className="form-control" type="text" name="graphicContentRating" />
-                                        <label>You may optionally include a brief comment in the box below, no more than 140 characters in length</label>
-                                        <ErrorMessage name="graphicContentDescription" component="div"
+                                    <ErrorMessage name="graphicContentDescription" component="div"
                                         className="alert alert-warning" />
-                                        <Field className="form-control" type="text" name="graphicContentDescription" />
+                                    <fieldset className="form-group">
+                                        <label><b>Graphic Content:</b></label>
+                                        <Field name="graphicContentRating" component="select">
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                            <option value="4">4</option>
+                                            <option value="5">5</option>
+                                            <option value="6">6</option>
+                                            <option value="7">7</option>
+                                            <option value="8">8</option>
+                                            <option value="9">9</option>
+                                            <option value="10">10</option>
+                                        </Field>
+                                    </fieldset>
+                                    <fieldset>
+                                        <label>You may optionally include a brief comment in the box below, no more than 140 characters in length</label>
+                                        <Field className="form-control" type="textarea" rows="2" name="graphicContentDescription" />
                                     </fieldset>
                                     <button
                                     className="btn btn-success"
