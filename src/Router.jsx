@@ -7,7 +7,7 @@ import AddReviewPage from './pages/AddReviewPage'
 import MasterListPage from './pages/MasterListPage'
 import ReviewSubmissionPage from './pages/ReviewSubmissionPage'
 import MovieCardsPage from './pages/MovieCardsPage'
-import ReviewForm from './forms/ReviewForm'
+
 
 
 export const Routes = () => {
@@ -21,7 +21,6 @@ export const Routes = () => {
                     <Route path="/all-movies" exact component={MasterListPage} />
                     <Route path="/submit-review/:id" exact component={ReviewSubmissionPage} />
                     <Route path="/reviews-for/:id" exact component={MovieCardsPage} />
-                    <Route path="/test-form" exact component={ReviewForm} />
                 </div>
             </Layout>
         </Router>
