@@ -12,7 +12,7 @@ export default () => {
             have an entry by browsing the database below!
         </p>
         <Link to="/all-movies">
-            <Button variant="success">*Browse the Master List*</Button>
+            <Button>*Browse the Master List*</Button>
         </Link>
         <br />
         <br />

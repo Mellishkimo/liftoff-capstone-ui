@@ -9,7 +9,7 @@ export default () => {
             <br />
             <br />
             <p style={{ fontSize: 'large' }}>
-                In order to review a movie, you must first select a film from the Database
+                To review a movie, first select a film from the Database
                 by using the "Review This Movie!" button
                 next to the movie on the Master List.
             </p>
@@ -21,7 +21,7 @@ export default () => {
             <br />
             <br />
             <p style={{ fontSize: 'large' }}>
-                Can't find the movie you want to review in the database? It might not have been added yet!
+                Can't find the movie in the database? It might not have been added yet!
                 Add the movie to the database using the link below!
             </p>
             

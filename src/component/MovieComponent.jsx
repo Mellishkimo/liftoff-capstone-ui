@@ -78,7 +78,7 @@ class MovieComponent extends Component {
                                     <fieldset className="form-group">
                                         <Field className="form-control" type="text" name="posterSource" />
                                     </fieldset>
-                                    <Button className="btn btn-success" type="submit">Add Movie</Button>
+                                    <Button type="submit">Add Movie</Button>
                                 </Form>
                             )
                         }

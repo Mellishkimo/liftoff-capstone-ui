@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Formik, Field, Form, ErrorMessage } from 'formik';
 import MovieDataService from '../service/MovieDataService';
 import { withRouter } from 'react-router-dom';
+import Button from 'react-bootstrap/Button';
 
 
 const REVIEW = 'lightning-fast-horror-reviews'
@@ -166,6 +167,7 @@ class ReviewComponent extends Component {
                                         <label>You may optionally include a brief comment in the box below, no more than 140 characters in length</label>
                                         <Field className="form-control" type="textarea" rows="2" name="characterDescription" />
                                     </fieldset>
+                                    <br />
                                  
                                     <ErrorMessage name="threatDescription" component="div"
                                         className="alert alert-warning" />
@@ -188,6 +190,7 @@ class ReviewComponent extends Component {
                                         <label>You may optionally include a brief comment in the box below, no more than 140 characters in length</label>
                                         <Field className="form-control" type="textarea" rows="2" name="threatDescription" />
                                     </fieldset>
+                                    <br />
                                     
                                     <ErrorMessage name="aestheticDescription" component="div"
                                         className="alert alert-warning" />                                
@@ -210,6 +213,7 @@ class ReviewComponent extends Component {
                                         <label>You may optionally include a brief comment in the box below, no more than 140 characters in length</label>
                                         <Field className="form-control" type="textarea" rows="2" name="aestheticDescription" />
                                     </fieldset>
+                                    <br />
                                     
                                     <ErrorMessage name="graphicContentDescription" component="div"
                                         className="alert alert-warning" />
@@ -232,10 +236,10 @@ class ReviewComponent extends Component {
                                         <label>You may optionally include a brief comment in the box below, no more than 140 characters in length</label>
                                         <Field className="form-control" type="textarea" rows="2" name="graphicContentDescription" />
                                     </fieldset>
-                                    <button
-                                    className="btn btn-success"
+                                    <br />
+                                    <Button
                                     type="submit"
-                                    >Submit Review</button>
+                                    >Submit Review</Button>
 
                                 </Form>
                             )

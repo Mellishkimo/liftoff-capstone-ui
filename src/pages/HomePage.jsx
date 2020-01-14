@@ -10,7 +10,7 @@ export default () => {
         <br />
         <br />
         <h3 style={{ fontSize: 'x-large' }}>
-            The only website where you can find the exact horror movie to fit your mood.
+            The only site where you can find the exact horror movie to fit your mood.
             Browse the database to find the perfect film for the evening, or give back to
             the community by submitting a review of your own! Thank you for using Lightning
             Fast Horror Reviews.
