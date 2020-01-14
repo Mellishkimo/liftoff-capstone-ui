@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 import { AppBar, Toolbar } from '@material-ui/core'
 
 export const NavBar = ({ color }) => (
-    <AppBar color={color}>
+    <AppBar color={color} style={{ background: '#007bff'}}>
         <Toolbar>
             <Link to="/">
                 <Button>Home</Button>
