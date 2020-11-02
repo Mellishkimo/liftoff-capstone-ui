@@ -7,47 +7,20 @@ import Image from 'react-bootstrap/Image';
 
 const REVIEW = 'lightning-fast-horror-reviews'
 const sortAggs = {
-    overallUp: {
-        fn: (a, b) => a.overallAggregate - b.overallAggregate
-    },
-    overallDown: {
-        fn: (a, b) => b.overallAggregate - a.overallAggregate
-    },
-    plotUp: {
-        fn: (a, b) => a.plotAggregate - b.plotAggregate
-    },
-    plotDown: {
-        fn: (a, b) => b.plotAggregate - a.plotAggregate
-    },
-    characterUp: {
-        fn: (a, b) => a.characterAggregate - b.characterAggregate
-    },
-    characterDown: {
-        fn: (a, b) => b.characterAggregate - a.characterAggregate
-    },
-    threatUp: {
-        fn: (a, b) => a.threatAggregate - b.threatAggregate
-    },
-    threatDown: {
-        fn: (a, b) => b.threatAggregate - a.threatAggregate
-    },
-    aestheticUp: {
-        fn: (a, b) => a.aestheticAggregate - b.aestheticAggregate
-    },
-    aestheticDown: {
-        fn: (a, b) => b.aestheticAggregate - a.aestheticAggregate
-    },
-    graphicContentUp: {
-        fn: (a, b) => a.graphicContentAggregate - b.graphicContentAggregate
-    },
-    graphicContentDown: {
-        fn: (a, b) => b.graphicContentAggregate - a.graphicContentAggregate
-    },
-    default: {
-        fn: (a, b) => a
-    }
+    overallUp: { fn: (a, b) => a.overallAggregate - b.overallAggregate },
+    overallDown: { fn: (a, b) => b.overallAggregate - a.overallAggregate },
+    plotUp: { fn: (a, b) => a.plotAggregate - b.plotAggregate },
+    plotDown: { fn: (a, b) => b.plotAggregate - a.plotAggregate },
+    characterUp: { fn: (a, b) => a.characterAggregate - b.characterAggregate },
+    characterDown: { fn: (a, b) => b.characterAggregate - a.characterAggregate },
+    threatUp: { fn: (a, b) => a.threatAggregate - b.threatAggregate },
+    threatDown: { fn: (a, b) => b.threatAggregate - a.threatAggregate },
+    aestheticUp: { fn: (a, b) => a.aestheticAggregate - b.aestheticAggregate },
+    aestheticDown: { fn: (a, b) => b.aestheticAggregate - a.aestheticAggregate },
+    graphicContentUp: { fn: (a, b) => a.graphicContentAggregate - b.graphicContentAggregate },
+    graphicContentDown: { fn: (a, b) => b.graphicContentAggregate - a.graphicContentAggregate },
+    default: { fn: (a, b) => a }
 }
-
 
 class ListMovies extends Component {
 
@@ -58,8 +31,28 @@ class ListMovies extends Component {
             currentSort: 'default'
         }
         this.refreshMovies = this.refreshMovies.bind(this)
-        
     }
+
+    filterMovieTitles = () => {
+        const input = document.getElementById('titleFilter')
+        const filter = input.value.toUpperCase()
+        const table = document.getElementById('movieTable')
+        const tr = table.getElementsByTagName('tr')
+  
+        for (let i = 0; i < tr.length; i++) {
+          const td = tr[i].getElementsByTagName('td')[1]
+  
+          if (td) {
+            const txtValue = td.textContent || td.innerText
+  
+            if (txtValue.toUpperCase().indexOf(filter) > -1) {
+              tr[i].style.display = ''
+            } else {
+              tr[i].style.display = 'none'
+            }
+          }
+        }
+      }
 
     onSortChangeOverall = () => {
         const { currentSort } = this.state;
@@ -80,13 +73,9 @@ class ListMovies extends Component {
         let nextSort;
 
         if (currentSort === 'plotDown') nextSort = 'plotUp';
-        else if (currentSort === 'plotUp') nextSort = 'plotDown';
-        else if (currentSort === 'default') nextSort = 'plotDown';
         else nextSort = 'plotDown';
 
-        this.setState({
-            currentSort: nextSort
-        })
+        this.setState({ currentSort: nextSort })
     }
 
     onSortChangeCharacter = () => {
@@ -94,13 +83,9 @@ class ListMovies extends Component {
         let nextSort;
 
         if (currentSort === 'characterDown') nextSort = 'characterUp';
-        else if (currentSort === 'characterUp') nextSort = 'characterDown';
-        else if (currentSort === 'default') nextSort = 'characterDown';
         else nextSort = 'characterDown';
 
-        this.setState({
-            currentSort: nextSort
-        })
+        this.setState({ currentSort: nextSort })
     }
 
     onSortChangeThreat = () => {
@@ -108,13 +93,9 @@ class ListMovies extends Component {
         let nextSort;
 
         if (currentSort === 'threatDown') nextSort = 'threatUp';
-        else if (currentSort === 'threatUp') nextSort = 'threatDown';
-        else if (currentSort === 'default') nextSort = 'threatDown';
         else nextSort = 'threatDown';
 
-        this.setState({
-            currentSort: nextSort
-        })
+        this.setState({ currentSort: nextSort })
     }
 
     onSortChangeAesthetic = () => {
@@ -122,13 +103,9 @@ class ListMovies extends Component {
         let nextSort;
 
         if (currentSort === 'aestheticDown') nextSort = 'aestheticUp';
-        else if (currentSort === 'aestheticUp') nextSort = 'aestheticDown';
-        else if (currentSort === 'default') nextSort = 'aestheticDown';
         else nextSort = 'aestheticDown';
 
-        this.setState({
-            currentSort: nextSort
-        })
+        this.setState({ currentSort: nextSort })
     }
 
     onSortChangeGraphicContent = () => {
@@ -136,41 +113,35 @@ class ListMovies extends Component {
         let nextSort;
 
         if (currentSort === 'graphicContentDown') nextSort = 'graphicContentUp';
-        else if (currentSort === 'graphicContentUp') nextSort = 'graphicContentDown';
-        else if (currentSort === 'default') nextSort = 'graphicContentDown';
         else nextSort = 'graphicContentDown';
 
-        this.setState({
-            currentSort: nextSort
-        })
-    }
-
-
-
-    componentDidMount() {
-        this.refreshMovies();        
+        this.setState({ currentSort: nextSort })
     }
 
     refreshMovies() {
-        MovieDataService.retrieveAllAggregateScores(REVIEW)//HARDCODED
+        MovieDataService.retrieveAllAggregateScores(REVIEW)
             .then(
                 response => {
-                    console.log(response);
                     this.setState({ movies: response.data })
                 }
             )
     }
 
+    componentDidMount() {
+        this.refreshMovies();        
+    }
 
     render() {
         const { currentSort } = this.state;
 
         return (
-            <Table striped bordered hover size='sm' style={{ fontWeight: 'bold' }}>
+            <React.Fragment>
+            <input id='titleFilter' onKeyUp={this.filterMovieTitles} placeholder='Filter by title...' />
+            <Table id='movieTable' striped bordered hover size='sm' style={{ fontWeight: 'bold' }}>
                 <thead>
                     <tr>
                         <th></th>
-                        <th>Title</th>
+                        <th style={{ paddingBottom: '10px' }}>Title</th>
                         <th>
                             <Button style={{ color: 'black', fontWeight: 'bold' }} variant='link' onClick={this.onSortChangeOverall}>
                                 Overall
@@ -188,12 +159,12 @@ class ListMovies extends Component {
                         </th>
                         <th>
                             <Button style={{ color: 'black', fontWeight: 'bold' }} variant='link' onClick={this.onSortChangeThreat}>
-                                Threat/Antagonist
+                                Threat
                             </Button>
                         </th>
                         <th>
                             <Button style={{ color: 'black', fontWeight: 'bold' }} variant='link' onClick={this.onSortChangeAesthetic}>
-                                Aesthetic/Atmosphere
+                                Aesthetic
                             </Button>
                         </th>
                         <th>
@@ -201,6 +172,7 @@ class ListMovies extends Component {
                                 Graphic Content
                             </Button>
                         </th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -208,28 +180,29 @@ class ListMovies extends Component {
                         movie =>
                         <tr key={movie.movieId}>
                             <td>
-                                <Image style={{ maxWidth: '60px', maxHeight: '100px' }} src={movie.moviePosterSource} />
+                                <Image style={{ maxHeight: '80px' }} src={movie.moviePosterSource} />
                             </td>
-                            <td>
-                                <Link to={`/reviews-for/${movie.movieId}`} style={{ max: '80px' }}>
+                            <td style={{ paddingTop: '20px' }}>
+                                <Link to={`/reviews-for/${movie.movieId}`}>
                                     <Button style={{ color: 'black' }} variant='link'><b>{movie.movieName}</b></Button>
                                 </Link>
                             </td>
-                            <td>{movie.overallAggregate}</td>
-                            <td>{movie.plotAggregate}</td>
-                            <td>{movie.characterAggregate}</td>
-                            <td>{movie.threatAggregate}</td>
-                            <td>{movie.aestheticAggregate}</td>
-                            <td>{movie.graphicContentAggregate}</td>
-                            <td>
+                            <td style={{ paddingTop: '26px' }}>{movie.overallAggregate.toFixed(1)}</td>
+                            <td style={{ paddingTop: '26px' }}>{movie.plotAggregate.toFixed(1)}</td>
+                            <td style={{ paddingTop: '26px' }}>{movie.characterAggregate.toFixed(1)}</td>
+                            <td style={{ paddingTop: '26px' }}>{movie.threatAggregate.toFixed(1)}</td>
+                            <td style={{ paddingTop: '26px' }}>{movie.aestheticAggregate.toFixed(1)}</td>
+                            <td style={{ paddingTop: '26px' }}>{movie.graphicContentAggregate.toFixed(1)}</td>
+                            <td style={{ paddingTop: '20px' }}>
                                 <Link to={`/submit-review/${movie.movieId}`}>
-                                    <Button>Review This!</Button>
+                                    <button className='pageButton'>Review This!</button>
                                 </Link>
                             </td>
                         </tr>
                     )}
                 </tbody>
             </Table>
+            </React.Fragment>
         );
         
             

@@ -3,7 +3,7 @@ import { NavBar } from './NavBar'
 
 export default ({ children }) => (
     <>
-        <NavBar color={'secondary'} />
+        <NavBar color={'inherit'} />
         {children}
         </>
 )

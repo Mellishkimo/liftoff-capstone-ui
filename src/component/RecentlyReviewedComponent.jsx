@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import MovieDataService from '../service/MovieDataService';
 import { Link } from 'react-router-dom';
-import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import CardGroup from 'react-bootstrap/CardGroup';
 
@@ -16,7 +15,6 @@ class RecentlyReviewed extends Component {
             movies: []
         }
         this.refreshMovies = this.refreshMovies.bind(this)
-        
     }
 
 
@@ -25,10 +23,9 @@ class RecentlyReviewed extends Component {
     }
 
     refreshMovies() {
-        MovieDataService.retrieveRecentlyReviewed(REVIEW)//HARDCODED
+        MovieDataService.retrieveRecentlyReviewed(REVIEW)
             .then(
                 response => {
-                    console.log(response);
                     this.setState({ movies: response.data })
                 }
             )
@@ -38,16 +35,16 @@ class RecentlyReviewed extends Component {
     render() {
         return (
             <div className="container">
-                <h3 style={{ fontSize: 'xxx-large' }}>Recently Reviewed Movies</h3>
-                <div className="container">
+                <h3 style={{ borderBottom: '1px solid gray', textAlign: 'center' }}>Recently Reviewed Movies</h3>
+                <div className="container" style={{ display: 'flex', justifyContent: 'center' }}>
                     <CardGroup>
                     { this.state.movies.map(
                         movie =>
-                        <Card key={movie.id}>
-                            <Card.Img style={{ maxHeight: '500px' }} variant="top" src={movie.posterSource} />
-                            <Card.Footer>
-                                <Link to={`/reviews-for/${movie.id}`} style={{ max: '80px' }}>
-                                    <Button style={{ color: 'black' }} variant='link'><b>{movie.title}</b></Button>
+                        <Card key={movie.id} style={{ display: 'flex', justifyContent: 'center', maxWidth: '183px' }}>
+                            <Card.Img className='poster' src={movie.posterSource} />
+                            <Card.Footer className='card-footer-btn'>
+                                <Link to={`/reviews-for/${movie.id}`} style={{ color: '#ff6600', fontWeight: 'bold' }}>
+                                    {movie.title}
                                 </Link>
                             </Card.Footer>
                         </Card>

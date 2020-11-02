@@ -1,251 +1,467 @@
 import React, { Component } from 'react'
-import { Formik, Field, Form, ErrorMessage } from 'formik';
+import {
+    Button,
+    Col,
+    Form,
+    FormGroup,
+    Input,
+    Label
+  } from 'reactstrap'
+import { selectOptions } from '../helpers/selectOptions'
 import MovieDataService from '../service/MovieDataService';
 import { withRouter } from 'react-router-dom';
-import Button from 'react-bootstrap/Button';
-
+import Slider from '@material-ui/core/Slider'
+import { withStyles } from '@material-ui/core/styles'
+import Pumpkin from '../helpers/Pumpkin.svg'
+import { Row } from 'react-bootstrap';
 
 const REVIEW = 'lightning-fast-horror-reviews'
+
+const PumpkinSlider = withStyles({
+    root: {
+      color: 'black',
+      height: 14
+    },
+    thumb: {
+      color: 'black',
+      height: 25,
+      width: 28,
+      marginTop: -6,
+      marginLeft: -12,
+      '&:focus, &:hover': {
+        boxShadow: 'inherit',
+      },
+    },
+    mark: {
+        width: 0
+    },
+    markLabel: {
+        fontSize: '16px',
+        marginTop: '14px'
+    },
+    track: {
+      border: '3px solid #ff6600',
+      color: '#ffcc00',
+      height: 14,
+      borderRadius: 4,
+    },
+    rail: {
+      border: '3px solid #ff8c00',
+      height: 14,
+      borderRadius: 4,
+      opacity: 1
+    },
+  })(Slider);
+
+  function PumpkinThumb(props) {
+      return (
+          <span {...props}>
+              <img src={Pumpkin} alt={'Pumpkin'} />
+          </span>
+      )
+  }
 
 class ReviewComponent extends Component {
     constructor(props) {
         super(props)
-
         this.state = {
-            author: '',
-            plotRating: 5,
-            characterRating: 5,
-            threatRating: 5,
-            aestheticRating: 5,
-            graphicContentRating: 5,
-            plotDescription: '',
-            characterDescription: '',
-            threatDescription: '',
+            aestheticCommentChecked: false,
             aestheticDescription: '',
+            aestheticRating: 1,
+            aestheticRemaining: 140,
+            characterCommentChecked: false,
+            characterDescription: '',
+            characterRating: 1,
+            characterRemaining: 140,
+            graphicCommentChecked: false,
             graphicContentDescription: '',
-            movieId: this.props.match.params.id, 
-            movie: {}
-
+            graphicContentRating: 1,
+            graphicContentRemaining: 140,
+            movie: {},
+            movieId: this.props.match.params.id,
+            plotCommentChecked: false, 
+            plotDescription: '',
+            plotRating: 1,
+            plotRemaining: 140,
+            reviewerName: '',
+            submitAttempted: false,
+            threatCommentChecked: false,
+            threatDescription: '',
+            threatRating: 1,
+            threatRemaining: 140
         }
 
-        this.onSubmit = this.onSubmit.bind(this)
-        this.validate = this.validate.bind(this)
+        this.handleAestheticComment = this.handleAestheticComment.bind(this)
+        this.handleAestheticCommentCheck = this.handleAestheticCommentCheck.bind(this)
+        this.handleAestheticRatingSelect = this.handleAestheticRatingSelect.bind(this)
+        this.handleCharacterComment = this.handleCharacterComment.bind(this)
+        this.handleCharacterCommentCheck = this.handleCharacterCommentCheck.bind(this)
+        this.handleCharacterRatingSelect = this.handleCharacterRatingSelect.bind(this)
+        this.handleGraphicCommentCheck = this.handleGraphicCommentCheck.bind(this)
+        this.handleGraphicContentComment = this.handleGraphicContentComment.bind(this)
+        this.handleGraphicContentRatingSelect = this.handleGraphicContentRatingSelect.bind(this)
+        this.handlePlotComment = this.handlePlotComment.bind(this)
+        this.handlePlotCommentCheck = this.handlePlotCommentCheck.bind(this)
+        this.handlePlotRatingSelect = this.handlePlotRatingSelect.bind(this)
+        this.handleReviewerName = this.handleReviewerName.bind(this)
+        this.handleThreatComment = this.handleThreatComment.bind(this)
+        this.handleThreatCommentCheck = this.handleThreatCommentCheck.bind(this)
+        this.handleThreatRatingSelect = this.handleThreatRatingSelect.bind(this)
+        this.submit = this.submit.bind(this)
+    }
 
+    handleAestheticComment (event) {
+        this.setState({ 
+            [event.target.id]: event.target.value,
+            aestheticRemaining: 140 - (event.target.value.length) })
+    }
+
+    handleAestheticCommentCheck (event) {
+        this.setState({ aestheticCommentChecked: !this.state.aestheticCommentChecked })
+    }
+
+    handleAestheticRatingSelect (event, value) {
+        this.setState({ aestheticRating: value })
+    }
+
+    handleCharacterComment (event) {
+        this.setState({ 
+            [event.target.id]: event.target.value,
+            characterRemaining: 140 - (event.target.value.length) })
+    }
+
+    handleCharacterCommentCheck (event) {
+        this.setState({ characterCommentChecked: !this.state.characterCommentChecked })
+    }
+
+    handleCharacterRatingSelect (event, value) {
+        this.setState({ characterRating: value })
+    }
+
+    handleGraphicCommentCheck (event) {
+        this.setState({ graphicCommentChecked: !this.state.graphicCommentChecked })
+    }
+
+    handleGraphicContentComment (event) {
+        this.setState({ 
+            [event.target.id]: event.target.value,
+            graphicContentRemaining: 140 - (event.target.value.length) })
+    }
+
+    handleGraphicContentRatingSelect (event, value) {
+        this.setState({ graphicContentRating: value })
+    }
+
+    handlePlotComment (event) {
+        this.setState({ 
+            [event.target.id]: event.target.value,
+            plotRemaining: 140 - (event.target.value.length) })
+    }
+
+    handlePlotCommentCheck (event) {
+        this.setState({ plotCommentChecked: !this.state.plotCommentChecked })
+    }
+
+    handlePlotRatingSelect (event, value) {
+        this.setState({ plotRating: value })
+    }
+
+    handleReviewerName (event) {
+        this.setState({ [event.target.id]: event.target.value })
+    }
+
+    handleThreatComment (event) {
+        this.setState({ 
+            [event.target.id]: event.target.value,
+            threatRemaining: 140 - (event.target.value.length) })
+    }
+
+    handleThreatCommentCheck (event) {
+        this.setState({ threatCommentChecked: !this.state.threatCommentChecked })
+    }
+
+    handleThreatRatingSelect (event, value) {
+        this.setState({ threatRating: value })
+    }
+
+    submit(event) {
+        event.preventDefault()
+
+        if (!this.state.reviewerName) {
+                this.setState({
+                    submitAttempted: true
+                })
+            return
+        }
+        
+        let review = {
+            author: this.state.reviewerName,
+            plotRating: this.state.plotRating,
+            characterRating: this.state.characterRating,
+            threatRating: this.state.threatRating,
+            aestheticRating: this.state.aestheticRating,
+            graphicContentRating: this.state.graphicContentRating,
+            plotDescription: this.state.plotDescription,
+            characterDescription: this.state.characterDescription,
+            threatDescription: this.state.threatDescription,
+            aestheticDescription: this.state.aestheticDescription,
+            graphicContentDescription: this.state.graphicContentDescription
+        }
+
+        MovieDataService.createReview(review, this.state.movieId)
+            .then(() => {this.props.history.push(`/reviews-for/${this.state.movieId}`)})
     }
 
     componentDidMount() {
-
-        console.log(this.state.movieId)
-
-        this.state.movie = MovieDataService.retrieveMovie(REVIEW, this.state.movieId)
+        MovieDataService.retrieveMovie(REVIEW, this.state.movieId)
         .then(
             response => {
-                console.log(response);
                 this.setState({ movie: response.data })
             }
         )
     }
 
-    validate(values) {
-        let errors = {}
-        if (!values.author) {
-            errors.author = 'Enter your name or nickname!'
-        }
-        if (values.plotDescription.length > 140) {
-            errors.plotDescription = 'Comments must be fewer than 140 characters in length.'
-        }
-        if (values.characterDescription.length > 140) {
-            errors.characterDescription = 'Comments must be fewer than 140 characters in length.'
-        }
-        if (values.threatDescription.length > 140) {
-            errors.threatDescription = 'Comments must be fewer than 140 characters in length.'
-        }
-        if (values.aestheticDescription.length > 140) {
-            errors.aestheticDescription = 'Comments must be fewer than 140 characters in length.'
-        }
-        if (values.graphicContentDescription.length > 140) {
-            errors.graphicContentDescription = 'Comments must be fewer than 140 characters in length.'
-        }
-
-        return errors
-
-    }
-
-  
-
-    onSubmit(values) {
-        
-        let review = {
-            author: values.author,
-            plotRating: values.plotRating,
-            characterRating: values.characterRating,
-            threatRating: values.threatRating,
-            aestheticRating: values.aestheticRating,
-            graphicContentRating: values.graphicContentRating,
-            plotDescription: values.plotDescription,
-            characterDescription: values.characterDescription,
-            threatDescription: values.threatDescription,
-            aestheticDescription: values.aestheticDescription,
-            graphicContentDescription: values.graphicContentDescription
-        }
-
-        if (review.plotDescription !== "zzyzyzz") {
-            MovieDataService.createReview(review, this.state.movieId)
-                .then(() => {this.props.history.push(`/reviews-for/${this.state.movieId}`)})
-        }
-
-        console.log(values);
-    }
-
     render() {
 
-        let { author, plotRating, characterRating, threatRating, aestheticRating, graphicContentRating,
-            plotDescription, characterDescription, threatDescription, aestheticDescription, graphicContentDescription } = this.state
+        const { aestheticCommentChecked, aestheticDescription, aestheticRemaining, characterCommentChecked, characterDescription, characterRemaining,
+                graphicCommentChecked, graphicContentDescription, graphicContentRemaining, movie, plotCommentChecked, plotDescription, plotRemaining,
+                reviewerName, submitAttempted, threatCommentChecked, threatDescription, threatRemaining } = this.state
 
         return (
             <div>
-                <h1>Review for {this.state.movie.title}</h1>
+                <h2>Review of {movie.title}</h2>
+                <Row>
+                    <Col />
+                    <Col style={{ display: 'flex', justifyContent: 'center' }}>
+                        <img src={movie.posterSource} alt={'Poster'} style={{ height: '268px', width: '182px' }} />
+                    </Col>
+                    <Col />
+                </Row>
                 <br />
                 <div className="container">
-                    <Formik
-                        initialValues={{ author, plotRating, characterRating, threatRating, aestheticRating, graphicContentRating,
-                            plotDescription, characterDescription, threatDescription, aestheticDescription, graphicContentDescription }}
-                        onSubmit={this.onSubmit}
-                        validate={this.validate}
-                    >
-                        {
-                            (props) => (
-                                <Form>
-                                    <ErrorMessage name="author" component="div"
-                                        className="alert alert-warning" />
-                                    <label><b>Author</b> (Enter your name or nickname here)</label>
-                                    <fieldset className="form-group">
-                                        <Field className="form-control" type="text" name="author" />
-                                    </fieldset>
-
-                                    
-                                    <ErrorMessage name="plotDescription" component="div"
-                                        className="alert alert-warning" />                                
-                                    <fieldset className="form-group">
-                                    <label><b>Plot:</b></label> 
-                                        <Field name="plotRating" component="select">
-                                            <option value="1">1</option>
-                                            <option value="2">2</option>
-                                            <option value="3">3</option>
-                                            <option value="4">4</option>
-                                            <option value="5">5</option>
-                                            <option value="6">6</option>
-                                            <option value="7">7</option>
-                                            <option value="8">8</option>
-                                            <option value="9">9</option>
-                                            <option value="10">10</option>
-                                        </Field>
-                                    </fieldset>
-                                    <fieldset className="form-group">
-                                        <label>You may optionally include a brief comment in the box below, no more than 140 characters in length</label>
-                                        <Field className="form-control" type="textarea" rows="2" name="plotDescription" />
-                                    </fieldset>
-                                    
-                                    <ErrorMessage name="characterDescription" component="div"
-                                        className="alert alert-warning" />                            
-                                    <fieldset className="form-group">
-                                        <label><b>Characters:</b></label>    
-                                        <Field name="characterRating" component="select">
-                                            <option value="1">1</option>
-                                            <option value="2">2</option>
-                                            <option value="3">3</option>
-                                            <option value="4">4</option>
-                                            <option value="5">5</option>
-                                            <option value="6">6</option>
-                                            <option value="7">7</option>
-                                            <option value="8">8</option>
-                                            <option value="9">9</option>
-                                            <option value="10">10</option>
-                                        </Field>
-                                    </fieldset>
-                                    <fieldset>
-                                        <label>You may optionally include a brief comment in the box below, no more than 140 characters in length</label>
-                                        <Field className="form-control" type="textarea" rows="2" name="characterDescription" />
-                                    </fieldset>
-                                    <br />
-                                 
-                                    <ErrorMessage name="threatDescription" component="div"
-                                        className="alert alert-warning" />
-                                    <fieldset className="form-group">
-                                        <label><b>Threat/Antagonist:</b></label> 
-                                        <Field name="threatRating" component="select">
-                                            <option value="1">1</option>
-                                            <option value="2">2</option>
-                                            <option value="3">3</option>
-                                            <option value="4">4</option>
-                                            <option value="5">5</option>
-                                            <option value="6">6</option>
-                                            <option value="7">7</option>
-                                            <option value="8">8</option>
-                                            <option value="9">9</option>
-                                            <option value="10">10</option>
-                                        </Field>
-                                    </fieldset>
-                                    <fieldset>
-                                        <label>You may optionally include a brief comment in the box below, no more than 140 characters in length</label>
-                                        <Field className="form-control" type="textarea" rows="2" name="threatDescription" />
-                                    </fieldset>
-                                    <br />
-                                    
-                                    <ErrorMessage name="aestheticDescription" component="div"
-                                        className="alert alert-warning" />                                
-                                    <fieldset className="form-group">
-                                        <label><b>Atmosphere/Aesthetic:</b></label>   
-                                        <Field name="aestheticRating" component="select">
-                                            <option value="1">1</option>
-                                            <option value="2">2</option>
-                                            <option value="3">3</option>
-                                            <option value="4">4</option>
-                                            <option value="5">5</option>
-                                            <option value="6">6</option>
-                                            <option value="7">7</option>
-                                            <option value="8">8</option>
-                                            <option value="9">9</option>
-                                            <option value="10">10</option>
-                                        </Field>
-                                    </fieldset>
-                                    <fieldset>
-                                        <label>You may optionally include a brief comment in the box below, no more than 140 characters in length</label>
-                                        <Field className="form-control" type="textarea" rows="2" name="aestheticDescription" />
-                                    </fieldset>
-                                    <br />
-                                    
-                                    <ErrorMessage name="graphicContentDescription" component="div"
-                                        className="alert alert-warning" />
-                                    <fieldset className="form-group">
-                                        <label><b>Graphic Content:</b></label>
-                                        <Field name="graphicContentRating" component="select">
-                                            <option value="1">1</option>
-                                            <option value="2">2</option>
-                                            <option value="3">3</option>
-                                            <option value="4">4</option>
-                                            <option value="5">5</option>
-                                            <option value="6">6</option>
-                                            <option value="7">7</option>
-                                            <option value="8">8</option>
-                                            <option value="9">9</option>
-                                            <option value="10">10</option>
-                                        </Field>
-                                    </fieldset>
-                                    <fieldset>
-                                        <label>You may optionally include a brief comment in the box below, no more than 140 characters in length</label>
-                                        <Field className="form-control" type="textarea" rows="2" name="graphicContentDescription" />
-                                    </fieldset>
-                                    <br />
+                    <Form>
+                                    <FormGroup row>
+                                        <Label for='reviewerName' style={{ marginTop: '6px', paddingLeft: '20px' }}>Reviewer:</Label>
+                                        <Col sm={4}>
+                                            <Input
+                                                id='reviewerName'
+                                                placeholder='Your username here'
+                                                invalid={submitAttempted && !reviewerName}
+                                                value={reviewerName}
+                                                onChange={this.handleReviewerName} />
+                                        </Col>
+                                    </FormGroup>
+                                    <div className='reviewRow'>
+                                    <FormGroup row className='reviewHalf'>
+                                        <Col className='reviewCol'>
+                                            <h3 className='reviewCategory'>Plot</h3>
+                                            <FormGroup check>
+                                                <Label check>
+                                                <Input 
+                                                    type='checkbox'
+                                                    id='plotCommentCheckbox'
+                                                    checked={plotCommentChecked}
+                                                    onChange={this.handlePlotCommentCheck} />
+                                                    Add comment
+                                                </Label>
+                                            </FormGroup>
+                                        </Col>
+                                        <Col className='sliderCol'>
+                                            <PumpkinSlider
+                                                ThumbComponent={PumpkinThumb}
+                                                defaultValue={1}
+                                                onChange={this.handlePlotRatingSelect}
+                                                min={.9}
+                                                max={10.1}
+                                                step={null}
+                                                marks={selectOptions} />
+                                        </Col>
+                                    </FormGroup>
+                                    {plotCommentChecked &&
+                                    <React.Fragment>
+                                    <FormGroup row>
+                                        <Col className='commentCol'>
+                                            <Input
+                                                id='plotDescription'
+                                                type='text'
+                                                placeholder='You may include a brief comment here, no greater than 140 characters in length'
+                                                value={plotDescription}
+                                                onChange={this.handlePlotComment} />
+                                        </Col>
+                                    </FormGroup>
+                                    <p className='characterCounter' style={plotRemaining < 0 ? { color: '#dc3545' } : { color: '#5d5d5d' }}>{`${plotRemaining} characters remaining`}</p>
+                                    </React.Fragment>}
+                                    </div>
+                                    <div className='reviewRow'>
+                                    <FormGroup row className='reviewHalf'>
+                                        <Col className='reviewCol'>
+                                            <h3 className='reviewCategory'>Threat</h3>
+                                            <FormGroup check>
+                                                <Label check>
+                                                <Input 
+                                                    type='checkbox'
+                                                    id='threatCommentCheckbox'
+                                                    checked={threatCommentChecked}
+                                                    onChange={this.handleThreatCommentCheck} />
+                                                    Add comment
+                                                </Label>
+                                            </FormGroup>
+                                        </Col>
+                                        <Col className='sliderCol'>
+                                            <PumpkinSlider
+                                                ThumbComponent={PumpkinThumb}
+                                                defaultValue={1}
+                                                onChange={this.handleThreatRatingSelect}
+                                                min={.9}
+                                                max={10.1}
+                                                step={null}
+                                                marks={selectOptions} />
+                                        </Col>
+                                    </FormGroup>
+                                    {threatCommentChecked &&
+                                    <React.Fragment>
+                                    <FormGroup row>
+                                        <Col className='commentCol'>
+                                            <Input
+                                                id='threatDescription'
+                                                type='text'
+                                                placeholder='You may include a brief comment here, no greater than 140 characters in length'
+                                                value={threatDescription}
+                                                onChange={this.handleThreatComment} />
+                                        </Col>
+                                    </FormGroup>
+                                    <p className='characterCounter' style={threatRemaining < 0 ? { color: '#dc3545' } : { color: '#5d5d5d' }}>{`${threatRemaining} characters remaining`}</p>
+                                    </React.Fragment>}
+                                    </div>
+                                    <div className='reviewRow'>
+                                    <FormGroup row className='reviewHalf'>
+                                        <Col className='reviewCol'>
+                                            <h3 className='reviewCategory'>Characters</h3>
+                                            <FormGroup check>
+                                                <Label check>
+                                                <Input 
+                                                    type='checkbox'
+                                                    id='characterCommentCheckbox'
+                                                    checked={characterCommentChecked}
+                                                    onChange={this.handleCharacterCommentCheck} />
+                                                    Add comment
+                                                </Label>
+                                            </FormGroup>
+                                        </Col>
+                                        <Col className='sliderCol'>
+                                            <PumpkinSlider
+                                                ThumbComponent={PumpkinThumb}
+                                                defaultValue={1}
+                                                onChange={this.handleCharacterRatingSelect}
+                                                min={.9}
+                                                max={10.1}
+                                                step={null}
+                                                marks={selectOptions} />
+                                        </Col>
+                                    </FormGroup>
+                                    {characterCommentChecked &&
+                                    <React.Fragment>
+                                    <FormGroup row>
+                                        <Col className='commentCol'>
+                                            <Input
+                                                id='characterDescription'
+                                                type='text'
+                                                placeholder='You may include a brief comment here, no greater than 140 characters in length'
+                                                value={characterDescription}
+                                                onChange={this.handleCharacterComment} />
+                                        </Col>
+                                    </FormGroup>
+                                    <p className='characterCounter' style={characterRemaining < 0 ? { color: '#dc3545' } : { color: '#5d5d5d' }}>{`${characterRemaining} characters remaining`}</p>
+                                    </React.Fragment>}
+                                    </div>
+                                    <div className='reviewRow'>
+                                    <FormGroup row className='reviewHalf'>
+                                        <Col className='reviewCol'>
+                                            <h3 className='reviewCategory'>Aesthetic</h3>
+                                            <FormGroup check>
+                                                <Label check>
+                                                <Input 
+                                                    type='checkbox'
+                                                    id='aestheticCommentCheckbox'
+                                                    checked={aestheticCommentChecked}
+                                                    onChange={this.handleAestheticCommentCheck} />
+                                                    Add comment
+                                                </Label>
+                                            </FormGroup>
+                                        </Col>
+                                        <Col className='sliderCol'>
+                                            <PumpkinSlider
+                                                ThumbComponent={PumpkinThumb}
+                                                defaultValue={1}
+                                                onChange={this.handleAestheticRatingSelect}
+                                                min={.9}
+                                                max={10.1}
+                                                step={null}
+                                                marks={selectOptions} />
+                                        </Col>
+                                    </FormGroup>
+                                    {aestheticCommentChecked &&
+                                    <React.Fragment>
+                                    <FormGroup row>
+                                        <Col className='commentCol'>
+                                            <Input
+                                                id='aestheticDescription'
+                                                type='text'
+                                                placeholder='You may include a brief comment here, no greater than 140 characters in length'
+                                                value={aestheticDescription}
+                                                onChange={this.handleAestheticComment} />
+                                        </Col>
+                                    </FormGroup>
+                                    <p className='characterCounter' style={aestheticRemaining < 0 ? { color: '#dc3545' } : { color: '#5d5d5d' }}>{`${aestheticRemaining} characters remaining`}</p>
+                                    </React.Fragment>}
+                                    </div>
+                                    <div className='reviewRow'>
+                                    <FormGroup row className='reviewHalf'>
+                                        <Col className='reviewCol'>
+                                            <h3 className='reviewCategory'>Graphic Content</h3>
+                                            <FormGroup check>
+                                                <Label check>
+                                                <Input 
+                                                    type='checkbox'
+                                                    id='graphicCommentCheckbox'
+                                                    checked={graphicCommentChecked}
+                                                    onChange={this.handleGraphicCommentCheck} />
+                                                    Add comment
+                                                </Label>
+                                            </FormGroup>
+                                        </Col>
+                                        <Col className='sliderCol'>
+                                            <PumpkinSlider
+                                                ThumbComponent={PumpkinThumb}
+                                                defaultValue={1}
+                                                onChange={this.handleGraphicContentRatingSelect}
+                                                min={.9}
+                                                max={10.1}
+                                                step={null}
+                                                marks={selectOptions} />
+                                        </Col>
+                                    </FormGroup>
+                                    {graphicCommentChecked &&
+                                    <React.Fragment>
+                                    <FormGroup row>
+                                        <Col className='commentCol'>
+                                            <Input
+                                                id='graphicContentDescription'
+                                                type='text'
+                                                placeholder='You may include a brief comment here, no greater than 140 characters in length'
+                                                value={graphicContentDescription}
+                                                onChange={this.handleGraphicContentComment} />
+                                        </Col>
+                                    </FormGroup>
+                                    <p className='characterCounter' style={graphicContentRemaining < 0 ? { color: '#dc3545' } : { color: '#5d5d5d' }}>{`${graphicContentRemaining} characters remaining`}</p>
+                                    </React.Fragment>}
+                                    </div>
                                     <Button
                                     type="submit"
-                                    >Submit Review</Button>
-
+                                    className='submitButton'
+                                    onClick={this.submit}
+                                    >Submit</Button>
                                 </Form>
-                            )
-                        }
-
-                    </Formik>    
                 </div>
             </div>
         )

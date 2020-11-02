@@ -14,7 +14,7 @@ export const Routes = () => {
     return (
         <Router>
             <Layout>
-                <div style={{ marginTop: '100px', width: '100vw' }}>
+                <div style={{ marginTop: '80px', width: '100vw' }}>
                     <Route path="/" exact component={HomePage} />
                     <Route path="/add-movie" exact component={AddMoviePage} />
                     <Route path="/add-review" exact component={AddReviewPage} />

@@ -1,48 +1,142 @@
-.App {
+h1 {
+  font-family: serif;
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #09d3ac;
-}
-
-h1 {
+h2 {
+  font-family: serif;
+  font-size: 40px;
   text-align: center;
 }
 
 h3 {
-  text-align: center;
+  font-family: serif;
+  font-size: 30px;
 }
 
 p {
-  text-align: center;
+  font-family: serif;
 }
 
 table {
   text-align: center;
 }
 
-.pageButton {
+.reviewRow {
+  border-top: 1px solid gray;
+  padding: 20px;
+  padding-bottom: 8px;
+}
+
+.characterCounter {
+  float: right;
+  font-size: 12px;
+  font-style: italic;
+  margin-bottom: 0;
+  margin-left: 13px;
+  margin-top: -14px;
+}
+
+.submitButton {
   background-color: black;
   color: white;
   margin: auto;
 }
 
+.pageButton {
+  background: none;
+  border: 0px;
+  color: #ff6600;
+  font-weight: bold;
+  padding-top: 6px;
+  padding-right: 12px;
+  padding-bottom: 6px;
+  padding-left: 12px;
+}
+
+.pageButton:hover {
+  text-decoration: underline;
+}
+
+.navBar-link {
+  color: black;
+  font-weight: bold;
+  margin-right: 10px;
+}
+
+.navBar-link:hover {
+  color: black;
+  text-decoration: underline;
+}
+
+.reviewCol {
+  margin-top: -10px;
+  max-width: 240px;
+  padding-left: 0px;
+  padding-right: 0px;
+}
+
+.reviewCategory {
+  margin-bottom: 0px;
+}
+
+.reviewHalf {
+  margin-bottom: 0px;
+}
+
+.sliderCol {
+  margin-top: -6px;
+  padding-right: 0px;
+}
+
+.commentCol {
+  padding-left: 0px;
+  padding-right: 0px;
+}
+
+.lightningLink {
+  color: #ff6600;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.lightningLink:hover {
+  color: #ff6600;
+}
+
+.poster {
+  height: 268px;
+  width: 182px;
+}
+
+.card-footer-btn {
+  font-size: 12px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  padding-left: 10px;
+  padding-right: 10px;
+  text-align: center;
+}
+
+.reviewListGroup {
+  border-bottom: 1px solid red;
+  border-bottom-width: 1px;
+  font-size: 18px;
+  padding-top: 2px;
+  padding-bottom: 2px;
+}
+
+.categoryCol {
+  font-weight: bold;
+  max-width: 170px;
+  padding-right: 0px;
+}
+
+.scoreCol {
+  font-weight: bold;
+  padding-left: 0px;
+}
 
 
 @import url(https://unpkg.com/bootstrap@4.1.0/dist/css/bootstrap.min.css)

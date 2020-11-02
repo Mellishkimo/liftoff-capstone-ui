@@ -1,22 +1,21 @@
 import React from 'react'
-import Button from '@material-ui/core/Button'
 import { Link } from 'react-router-dom'
 import { AppBar, Toolbar } from '@material-ui/core'
 
 export const NavBar = ({ color }) => (
-    <AppBar color={color} style={{ background: '#007bff'}}>
+    <AppBar color={color} style={{ background: '#ff6600'}}>
         <Toolbar>
-            <Link to="/">
-                <Button>Home</Button>
+            <Link to="/" className='navBar-link'>
+                <div>Home</div>
             </Link>
-            <Link to="/add-movie">
-                <Button>Add Movie to Database</Button>
+            <Link to="/add-movie" className='navBar-link'>
+                <div>Add Movie</div>
             </Link>
-            <Link to="/add-review">
-                <Button>Review a Movie</Button>
+            <Link to="/add-review" className='navBar-link'>
+                <div>Submit Review</div>
             </Link>
-            <Link to="/all-movies">
-                <Button>List of All Movies</Button>
+            <Link to="/all-movies" className='navBar-link'>
+                <div>All Movies</div>
             </Link>
         </Toolbar>    
     </AppBar>

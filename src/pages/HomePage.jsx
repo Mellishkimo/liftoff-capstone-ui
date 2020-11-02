@@ -1,31 +1,31 @@
 import React from 'react'
-import Button from 'react-bootstrap/Button'
+import { Row } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import RecentlyReviewed from '../component/RecentlyReviewedComponent'
+import Pumpkin from '../helpers/Pumpkin.svg'
 
 export default () => {
     return (
-    <div className="container" style={{ textAlign: 'center' }}>
-        <h1 style={{ fontSize: 'xxx-large' }}>Welcome to Lightning Fast Horror Reviews</h1>
-        <br />
-        <br />
-        <h3 style={{ fontSize: 'x-large' }}>
+    <div className="container">
+        <h1 style={{ fontSize: '50px', marginBottom: '0px' }}>Lightning Fast Horror Reviews</h1>
+        <p style={{ fontSize: '18px', fontStyle: 'italic', textAlign: 'center' }}>
             The only site where you can find the exact horror movie to fit your mood.
-            Browse the database to find the perfect film for the evening, or give back to
-            the community by submitting a review of your own! Thank you for using Lightning
-            Fast Horror Reviews.
-        </h3>
-        <br />
-        <Link to="/all-movies">
-                <Button size="lg" style={{ width: '300px' }}>*Browse the Database*</Button>
-        </Link>
-        <br />
-        <br />
-        <Link to="/add-review">
-            <Button size="lg" style={{ width: '300px' }}>*Submit a Review*</Button>
-        </Link>
-        <br />
-        <br />
+        </p>
+        <Row style={{ display: 'flex', justifyContent: 'center' }}>
+            <img src={Pumpkin} alt={'Pumpkin'} />
+            <Link to='/add-movie' className='lightningLink' style={{ paddingLeft: '74px', paddingRight: '74px' }}>Add Movie</Link>
+            <img src={Pumpkin} alt={'Pumpkin'} />
+        </Row>
+        <Row style={{ display: 'flex', justifyContent: 'center' }}>
+            <img src={Pumpkin} alt={'Pumpkin'} />
+            <Link to='/add-review' className='lightningLink' style={{ paddingLeft: '51.5px', paddingRight: '51.5px' }}>Submit Review</Link>
+            <img src={Pumpkin} alt={'Pumpkin'} />
+        </Row>
+        <Row style={{ display: 'flex', justifyContent: 'center' }}>
+            <img src={Pumpkin} alt={'Pumpkin'} />
+            <Link to='/all-movies' className='lightningLink' style={{ paddingLeft: '35px', paddingRight: '35px' }}>Browse All Movies</Link>
+            <img src={Pumpkin} alt={'Pumpkin'} />
+        </Row>
         <RecentlyReviewed />
         <br />
     </div>
